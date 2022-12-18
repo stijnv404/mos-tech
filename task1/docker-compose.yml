@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+    apache:
+        build:
+          context: .
+          dockerfile: ./Dockerfile
+        container_name: mostech_apache
+        ports:
+          - "8123:8123"
+        volumes:
+          - ./code:/app
