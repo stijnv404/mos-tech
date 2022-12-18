@@ -1,0 +1,8 @@
+- either create a k8s cluster named 'cluster-2' or alter the name in variables.tf
+- create "secret.tfvars" with content: project = "some-gcp-project"
+- cd src
+- docker build -t sandwich-sre/mos-tech-stijnm .
+- docker push sandwich-sre/mos-tech-stijnm
+- cd ..
+- terraform init
+- terraform apply -var-file="secret.tfvars"

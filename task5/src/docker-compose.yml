@@ -1,0 +1,17 @@
+version: '2'
+
+volumes:
+  uploads:
+    name: mostech_uploads
+
+services:
+    apache:
+        build:
+          context: .
+          dockerfile: ./Dockerfile
+        container_name: mostech_apache
+        ports:
+          - "8123:8123"
+        volumes:
+          - ./code:/app
+          - uploads:/app/uploads:rw
