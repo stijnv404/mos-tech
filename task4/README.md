@@ -1,0 +1,3 @@
+- docker build -t sandwich-sre/mos-tech-stijnm .
+- docker push sandwich-sre/mos-tech-stijnm
+- kubectl apply -f k8s.yml

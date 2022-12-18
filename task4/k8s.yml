@@ -1,0 +1,54 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "mos-tech"
+  namespace: "default"
+  labels:
+    app: "mos-tech"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "mos-tech"
+  template:
+    metadata:
+      labels:
+        app: "mos-tech"
+    spec:    
+      volumes:
+      - name: mos-tech-uploads
+        persistentVolumeClaim:
+          claimName: mos-tech
+      containers:
+      - name: "mos-tech-stijnm"
+        image: "sandwich-sre/mos-tech-stijnm"
+        ports:
+        - containerPort: 8123
+        volumeMounts:
+        - name: mos-tech-uploads
+          mountPath: /app/uploads
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mos-tech
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard-rwo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mos-tech
+spec:
+  type: LoadBalancer
+  selector:
+    app: mos-tech
+  ports:
+  - port: 80
+    targetPort: 8123
